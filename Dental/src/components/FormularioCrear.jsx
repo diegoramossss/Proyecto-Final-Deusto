@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   dni: "",
   nombre: "",
   apellidos: "",
+  fechaNacimiento: "",
   direccion: "",
   localidad: "",
   codigoPostal: "",
@@ -68,21 +69,6 @@ function FormularioCrear() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="telefono">
-                Teléfono <span className="requerido">*</span>
-              </label>
-              <input
-                id="telefono"
-                name="telefono"
-                type="tel"
-                placeholder="600000000"
-                value={formData.telefono}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="form-group">
               <label htmlFor="nombre">
                 Nombre <span className="requerido">*</span>
               </label>
@@ -107,6 +93,33 @@ function FormularioCrear() {
                 type="text"
                 placeholder="García López"
                 value={formData.apellidos}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="fechaNacimiento">
+                Fecha de nacimiento <span className="requerido">*</span>
+              </label>
+              <input
+                id="fechaNacimiento"
+                name="fechaNacimiento"
+                type="date"
+                value={formData.fechaNacimiento}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="telefono">
+                Teléfono <span className="requerido">*</span>
+              </label>
+              <input
+                id="telefono"
+                name="telefono"
+                type="tel"
+                placeholder="600000000"
+                value={formData.telefono}
                 onChange={handleChange}
                 required
               />

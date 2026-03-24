@@ -11,8 +11,8 @@ function TablaPacientes() {
   const cargarPacientes = async () => {
     try {
       setLoading(true);
-      const response = await pacienteService.getAll();
-      setPacientes(response.data);
+      const data = await pacienteService.getAll();
+      setPacientes(data);
       setError(null);
     } catch (err) {
       setError(

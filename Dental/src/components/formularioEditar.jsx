@@ -14,8 +14,9 @@ function FormularioEditar() {
   useEffect(() => {
     const cargarPaciente = async () => {
       try {
-        const response = await pacienteService.getByDni(dni);
-        setFormData(response.data);
+        const data = await pacienteService.getByDni(dni);
+        // La API puede devolver el objeto directamente o dentro de una propiedad
+        setFormData(data.paciente ?? data);
       } catch (err) {
         setError("No se encontró el paciente con ese DNI.");
       } finally {
