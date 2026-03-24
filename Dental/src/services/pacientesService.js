@@ -1,67 +1,17 @@
 import axios from "axios";
 
-// URL base de la API REST
-const API_BASE_URL = "http://localhost:3001";
+const API_URL = "http://localhost:3000/pacientes";
 
-// Instancia de Axios con configuración base
-const api = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+const getAll = () => axios.get(API_URL);
 
-// ─── Servicio de Pacientes ────────────────────────────────────────────────────
-const pacientesService = {
-  /**
-   * Obtiene todos los pacientes
-   * @returns {Promise} Lista de pacientes
-   */
-  getAll: async () => {
-    const response = await api.get("/pacientes");
-    return response.data;
-  },
+const getByDni = (dni) => axios.get(`${API_URL}/${dni}`);
 
-  /**
-   * Obtiene un paciente por DNI
-   * @param {string} dni - DNI del paciente
-   * @returns {Promise} Datos del paciente
-   */
-  getByDni: async (dni) => {
-    const response = await api.get(`/pacientes/${dni}`);
-    return response.data;
-  },
+const create = (paciente) => axios.post(API_URL, paciente);
 
-  /**
-   * Crea un nuevo paciente
-   * @param {Object} paciente - Datos del nuevo paciente
-   * @returns {Promise} Paciente creado
-   */
-  create: async (paciente) => {
-    const response = await api.post("/pacientes", paciente);
-    return response.data;
-  },
+const update = (dni, paciente) => axios.put(`${API_URL}/${dni}`, paciente);
 
-  /**
-   * Actualiza un paciente existente
-   * @param {string} dni - DNI del paciente a actualizar
-   * @param {Object} datos - Nuevos datos del paciente
-   * @returns {Promise} Paciente actualizado
-   */
-  update: async (dni, datos) => {
-    const response = await api.put(`/pacientes/${dni}`, datos);
-    return response.data;
-  },
+const remove = (dni) => axios.delete(`${API_URL}/${dni}`);
 
-  /**
-   * Elimina un paciente por DNI
-   * @param {string} dni - DNI del paciente a eliminar
-   * @returns {Promise} Confirmación de eliminación
-   */
-  delete: async (dni) => {
-    const response = await api.delete(`/pacientes/${dni}`);
-    return response.data;
-  },
-};
+const pacienteService = { getAll, getByDni, create, update, remove };
 
-export default pacientesService;
+export default pacienteService;

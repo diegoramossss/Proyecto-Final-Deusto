@@ -1,269 +1,104 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
-import pacientesService from "../services/pacientesService";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import pacienteService from "../services/pacienteService";
 
-// ─── Modal de confirmación de borrado ─────────────────────────────────────────
-const ModalConfirmar = ({ paciente, onConfirmar, onCancelar, cargando }) => (
-  <div className="modal-overlay" onClick={onCancelar}>
-    <div className="modal" onClick={(e) => e.stopPropagation()}>
-      <h3 className="modal-title">⚠️ Eliminar paciente</h3>
-      <p className="modal-body">
-        ¿Estás seguro de que deseas eliminar a{" "}
-        <strong>
-          {paciente.nombre} {paciente.apellidos}
-        </strong>{" "}
-        (DNI: <strong>{paciente.dni}</strong>)?
-        <br />
-        <br />
-        Esta acción no se puede deshacer.
-      </p>
-      <div className="modal-actions">
-        <button
-          className="btn btn-ghost"
-          onClick={onCancelar}
-          disabled={cargando}
-        >
-          Cancelar
-        </button>
-        <button
-          className="btn btn-danger"
-          onClick={onConfirmar}
-          disabled={cargando}
-        >
-          {cargando ? "Eliminando…" : "🗑️ Eliminar"}
-        </button>
-      </div>
-    </div>
-  </div>
-);
-
-// ─── Componente Principal ─────────────────────────────────────────────────────
-const TablaPacientes = () => {
+function TablaPacientes() {
   const [pacientes, setPacientes] = useState([]);
-  const [cargando, setCargando] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [exito, setExito] = useState(null);
-  const [pacienteAEliminar, setPacienteAEliminar] = useState(null);
-  const [eliminando, setEliminando] = useState(false);
-  const [busqueda, setBusqueda] = useState("");
+  const navigate = useNavigate();
 
-  // Cargar pacientes
-  const cargarPacientes = useCallback(async () => {
+  const cargarPacientes = async () => {
     try {
-      setCargando(true);
+      setLoading(true);
+      const response = await pacienteService.getAll();
+      setPacientes(response.data);
       setError(null);
-      const data = await pacientesService.getAll();
-      setPacientes(data.pacientes || []);
     } catch (err) {
       setError(
-        err.response?.data?.error ||
-          "Error al cargar los pacientes. Verifica que la API esté activa.",
+        "Error al cargar los pacientes. Asegúrate de que la API está en marcha.",
       );
     } finally {
-      setCargando(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    cargarPacientes();
-  }, [cargarPacientes]);
-
-  // Limpiar mensajes tras 4s
-  useEffect(() => {
-    if (exito) {
-      const t = setTimeout(() => setExito(null), 4000);
-      return () => clearTimeout(t);
-    }
-  }, [exito]);
-
-  // Eliminar paciente
-  const handleEliminar = async () => {
-    if (!pacienteAEliminar) return;
-    try {
-      setEliminando(true);
-      await pacientesService.delete(pacienteAEliminar.dni);
-      setExito(
-        `Paciente ${pacienteAEliminar.nombre} ${pacienteAEliminar.apellidos} eliminado correctamente.`,
-      );
-      setPacienteAEliminar(null);
-      cargarPacientes();
-    } catch (err) {
-      setError(err.response?.data?.error || "Error al eliminar el paciente.");
-      setPacienteAEliminar(null);
-    } finally {
-      setEliminando(false);
+      setLoading(false);
     }
   };
 
-  // Filtrado local por búsqueda
-  const pacientesFiltrados = pacientes.filter((p) => {
-    const q = busqueda.toLowerCase();
-    return (
-      p.dni.toLowerCase().includes(q) ||
-      p.nombre.toLowerCase().includes(q) ||
-      p.apellidos.toLowerCase().includes(q) ||
-      (p.diagnostico || "").toLowerCase().includes(q)
-    );
-  });
+  useEffect(() => {
+    cargarPacientes();
+  }, []);
+
+  const handleEliminar = async (dni) => {
+    if (!window.confirm(`¿Eliminar al paciente con DNI ${dni}?`)) return;
+    try {
+      await pacienteService.remove(dni);
+      setPacientes((prev) => prev.filter((p) => p.dni !== dni));
+    } catch (err) {
+      alert("Error al eliminar el paciente.");
+    }
+  };
+
+  if (loading)
+    return <div className="estado-mensaje">Cargando pacientes...</div>;
+  if (error) return <div className="estado-mensaje error">{error}</div>;
 
   return (
-    <div>
-      {/* Header */}
-      <div className="page-header">
-        <h1>Gestión de Pacientes</h1>
-        <p>Administra el registro de pacientes del sistema hospitalario.</p>
+    <div className="tabla-container">
+      <div className="tabla-header">
+        <h2>Pacientes registrados</h2>
+        <button className="btn btn-nuevo" onClick={() => navigate("/crear")}>
+          + Nuevo paciente
+        </button>
       </div>
 
-      {/* Stats */}
-      <div className="stats-bar">
-        <div className="stat-card">
-          <div className="stat-icon blue">🏥</div>
-          <div className="stat-info">
-            <p>Total pacientes</p>
-            <strong>{pacientes.length}</strong>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon teal">🔍</div>
-          <div className="stat-info">
-            <p>Resultados filtro</p>
-            <strong>{pacientesFiltrados.length}</strong>
-          </div>
-        </div>
-      </div>
-
-      {/* Alertas */}
-      {error && (
-        <div className="alert alert-error">
-          <span className="alert-icon">❌</span>
-          <span>{error}</span>
-        </div>
-      )}
-      {exito && (
-        <div className="alert alert-success">
-          <span className="alert-icon">✅</span>
-          <span>{exito}</span>
-        </div>
-      )}
-
-      {/* Tabla card */}
-      <div className="card">
-        <div className="card-header">
-          <h2>📋 Registro de pacientes</h2>
-          <div
-            style={{
-              display: "flex",
-              gap: "0.75rem",
-              alignItems: "center",
-              flexWrap: "wrap",
-            }}
-          >
-            <input
-              type="text"
-              className="form-control"
-              placeholder="🔍 Buscar por nombre, DNI o diagnóstico…"
-              value={busqueda}
-              onChange={(e) => setBusqueda(e.target.value)}
-              style={{ width: "260px" }}
-            />
-            <Link to="/pacientes/nuevo" className="btn btn-primary">
-              ＋ Nuevo paciente
-            </Link>
-          </div>
-        </div>
-
-        {cargando ? (
-          <div className="loading-wrap">
-            <div className="spinner" />
-            <p>Cargando pacientes…</p>
-          </div>
-        ) : pacientesFiltrados.length === 0 ? (
-          <div className="empty-state">
-            <span className="empty-icon">🏥</span>
-            <p>
-              {busqueda
-                ? "No se encontraron pacientes que coincidan con la búsqueda."
-                : "No hay pacientes registrados. ¡Crea el primero!"}
-            </p>
-            {!busqueda && (
-              <Link to="/pacientes/nuevo" className="btn btn-primary">
-                ＋ Añadir paciente
-              </Link>
-            )}
-          </div>
-        ) : (
-          <div className="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>DNI</th>
-                  <th>Nombre</th>
-                  <th>Apellidos</th>
-                  <th>F. Nacimiento</th>
-                  <th>Teléfono</th>
-                  <th>Diagnóstico</th>
-                  <th>Acciones</th>
+      {pacientes.length === 0 ? (
+        <div className="estado-mensaje">No hay pacientes registrados aún.</div>
+      ) : (
+        <div className="tabla-wrapper">
+          <table className="tabla">
+            <thead>
+              <tr>
+                <th>DNI</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Dirección</th>
+                <th>Localidad</th>
+                <th>C.P.</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pacientes.map((paciente) => (
+                <tr key={paciente.dni}>
+                  <td className="dni-cell">{paciente.dni}</td>
+                  <td>{paciente.nombre}</td>
+                  <td>{paciente.apellidos}</td>
+                  <td>{paciente.direccion}</td>
+                  <td>{paciente.localidad}</td>
+                  <td>{paciente.codigoPostal}</td>
+                  <td>{paciente.telefono}</td>
+                  <td className="acciones-cell">
+                    <button
+                      className="btn btn-editar"
+                      onClick={() => navigate(`/editar/${paciente.dni}`)}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="btn btn-eliminar"
+                      onClick={() => handleEliminar(paciente.dni)}
+                    >
+                      Eliminar
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {pacientesFiltrados.map((paciente) => (
-                  <tr key={paciente.dni}>
-                    <td>
-                      <span className="badge-dni">{paciente.dni}</span>
-                    </td>
-                    <td className="td-name">{paciente.nombre}</td>
-                    <td>{paciente.apellidos}</td>
-                    <td className="text-muted text-sm">
-                      {paciente.fechaNacimiento}
-                    </td>
-                    <td className="text-muted text-sm">{paciente.telefono}</td>
-                    <td className="text-sm">
-                      {paciente.diagnostico || (
-                        <span
-                          className="text-muted"
-                          style={{ fontStyle: "italic" }}
-                        >
-                          Sin diagnóstico
-                        </span>
-                      )}
-                    </td>
-                    <td>
-                      <div className="table-actions">
-                        <Link
-                          to={`/pacientes/editar/${paciente.dni}`}
-                          className="btn btn-outline btn-sm"
-                          title="Editar paciente"
-                        >
-                          ✏️ Editar
-                        </Link>
-                        <button
-                          className="btn btn-danger btn-sm"
-                          title="Eliminar paciente"
-                          onClick={() => setPacienteAEliminar(paciente)}
-                        >
-                          🗑️
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
-
-      {/* Modal confirmación */}
-      {pacienteAEliminar && (
-        <ModalConfirmar
-          paciente={pacienteAEliminar}
-          onConfirmar={handleEliminar}
-          onCancelar={() => setPacienteAEliminar(null)}
-          cargando={eliminando}
-        />
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
-};
+}
 
 export default TablaPacientes;
