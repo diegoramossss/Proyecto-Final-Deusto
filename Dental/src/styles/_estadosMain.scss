@@ -1,0 +1,25 @@
+@use "variables";
+/* ===== MAIN ===== */
+
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+
+/* ===== ESTADO MENSAJES ===== */
+.estado-mensaje {
+  text-align: center;
+  padding: 3rem;
+  color: variables.$color-surface;
+  font-size: 1rem;
+  background: variables.$color-surface;
+  border-radius: variables.$radius-lg;
+  box-shadow: variables.$shadow-sm;
+}
+
+.estado-mensaje.error {
+  color: variables.$color-danger;
+  background: variables.$color-danger-light;
+  border: 1px solid #f5c6c2;
+}

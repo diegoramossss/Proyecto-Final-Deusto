@@ -7,12 +7,14 @@ function Navbar() {
     <nav className="navbar">
       <div className="navbar-brand">
         <span className="navbar-logo">🦷</span>
-        <span className="navbar-title">Dental Time</span>
+        <Link to="/" className="navbar-title">
+          Dental Time
+        </Link>
       </div>
       <div className="navbar-links">
         <Link
-          to="/"
-          className={`navbar-link ${location.pathname === "/" ? "activo" : ""}`}
+          to="/pacientes"
+          className={`navbar-link ${location.pathname === "/pacientes" ? "activo" : ""}`}
         >
           Pacientes
         </Link>

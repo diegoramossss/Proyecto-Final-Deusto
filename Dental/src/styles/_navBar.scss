@@ -1,0 +1,63 @@
+@use "variables";
+/* ===== NAVBAR ===== */
+.navbar {
+  background: variables.$color-surface;
+  border-bottom: 1px solid variables.$color-border;
+  padding: 0 2rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: variables.$shadow-sm;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.navbar-logo {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.navbar-title {
+  font-family: variables.$font-display;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: variables.$color-primary;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.navbar-link {
+  text-decoration: none;
+  color: variables.$color-text-muted;
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  transition:
+    background variables.$transition,
+    color variables.$transition;
+}
+
+.navbar-link:hover {
+  background: variables.$color-surface-alt;
+  color: variables.$color-text;
+}
+
+.navbar-link.activo {
+  background: variables.$color-primary-light;
+  color: variables.$color-primary;
+  font-weight: 600;
+}

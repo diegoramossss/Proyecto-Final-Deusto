@@ -1,0 +1,11 @@
+@use "./variables";
+
+/* ── FOOTER ── */
+.home-footer {
+  text-align: center;
+  padding: 1.5rem 0 0.5rem;
+  border-top: 1px solid #e0eef8;
+  color: variables.$color-surface;
+  font-size: 0.85rem;
+  background-color: variables.$color-primary;
+}

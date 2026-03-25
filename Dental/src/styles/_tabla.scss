@@ -1,0 +1,148 @@
+@use "variables";
+/* ===== TABLA ===== */
+.tabla-container {
+  background: variables.$color-surface;
+  border-radius: variables.$radius-lg;
+  box-shadow: variables.$shadow-md;
+  overflow: hidden;
+}
+
+.tabla-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid variables.$color-border;
+}
+
+.tabla-header h2 {
+  font-family: variables.$font-display;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: variables.$color-text;
+  letter-spacing: -0.02em;
+}
+
+.tabla-wrapper {
+  overflow-x: auto;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.tabla thead tr {
+  background: variables.$color-surface-alt;
+}
+
+.tabla th {
+  text-align: left;
+  padding: 0.9rem 1.2rem;
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: variables.$color-text-muted;
+  border-bottom: 1px solid variables.$color-border;
+  white-space: nowrap;
+}
+
+.tabla tbody tr {
+  border-bottom: 1px solid variables.$color-border;
+  transition: background variables.$transition;
+}
+
+.tabla tbody tr:last-child {
+  border-bottom: none;
+}
+
+.tabla tbody tr:hover {
+  background: variables.$color-surface-alt;
+}
+
+.tabla td {
+  padding: 0.9rem 1.2rem;
+  color: variables.$color-text;
+  vertical-align: middle;
+}
+
+.dni-cell {
+  font-weight: 600;
+  font-family: monospace;
+  color: variables.$color-primary !important;
+  font-size: 0.9rem;
+}
+
+.acciones-cell {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* ===== BOTONES ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-family: variables.$font-body;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    opacity variables.$transition,
+    transform variables.$transition,
+    box-shadow variables.$transition;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-nuevo {
+  background: variables.$color-primary;
+  color: #fff;
+  padding: 0.55rem 1.2rem;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(13, 110, 110, 0.3);
+}
+
+.btn-editar {
+  background: variables.$color-primary-light;
+  color: variables.$color-primary;
+}
+
+.btn-eliminar {
+  background: variables.$color-danger-light;
+  color: variables.$color-danger;
+}
+
+.btn-cancelar {
+  background: variables.$color-surface-alt;
+  color: variables.$color-text-muted;
+  border: 1px solid variables.$color-border;
+}
+
+.btn-guardar {
+  background: variables.$color-primary;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(13, 110, 110, 0.3);
+  padding: 0.6rem 1.5rem;
+}

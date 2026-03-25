@@ -1,0 +1,255 @@
+@use "./variables";
+/* ── HERO ── */
+.home-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  background: linear-gradient(135deg, #e8f4fd 0%, #f0faff 100%);
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-hero-content {
+  flex: 1;
+  z-index: 1;
+}
+
+.home-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #fff;
+  border: 1px solid #cce4f7;
+  border-radius: 999px;
+  padding: 0.3rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1a6fa8;
+  margin-bottom: 1.2rem;
+}
+
+.home-hero-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #0d2d45;
+  margin: 0 0 1rem;
+}
+
+.home-hero-accent {
+  color: #1a8fe3;
+}
+
+.home-hero-subtitulo {
+  color: #4a6d85;
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+  max-width: 440px;
+}
+
+.home-hero-acciones {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.home-btn-primary {
+  padding: 0.75rem 1.8rem !important;
+  font-size: 1rem !important;
+  border-radius: 10px !important;
+}
+
+.home-btn-secondary {
+  padding: 0.75rem 1.8rem !important;
+  font-size: 1rem !important;
+  border-radius: 10px !important;
+}
+
+/* ilustración decorativa */
+.home-hero-illustration {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+}
+
+.home-hero-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+.home-circle-1 {
+  width: 180px;
+  height: 180px;
+  background: #1a8fe3;
+  top: 10px;
+  left: 10px;
+}
+
+.home-circle-2 {
+  width: 120px;
+  height: 120px;
+  background: #0d2d45;
+  bottom: 10px;
+  right: 0;
+}
+
+.home-tooth-icon {
+  position: absolute;
+  font-size: 6rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+/* ── STATS ── */
+.home-stats {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.home-stat-card {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #fff;
+  border: 1px solid #e0eef8;
+  border-radius: 14px;
+  padding: 1.4rem 1.6rem;
+  box-shadow: 0 2px 8px rgba(26, 143, 227, 0.07);
+}
+
+.home-stat-icon {
+  font-size: 2rem;
+}
+
+.home-stat-numero {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #0d2d45;
+  margin: 0;
+  line-height: 1;
+}
+
+.home-stat-label {
+  font-size: 0.85rem;
+  color: #6a8faa;
+  margin: 0.2rem 0 0;
+}
+
+/* ── CARDS ── */
+.home-cards-titulo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #0d2d45;
+  margin-bottom: 1.2rem;
+}
+
+.home-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.home-card {
+  background: #fff;
+  border: 1px solid #e0eef8;
+  border-radius: 16px;
+  padding: 1.8rem;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+  box-shadow: 0 2px 8px rgba(26, 143, 227, 0.06);
+}
+
+.home-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(26, 143, 227, 0.14);
+}
+
+.home-card-destacada {
+  background: linear-gradient(135deg, #1a8fe3 0%, #1a6fa8 100%);
+  border-color: transparent;
+  color: #fff;
+}
+
+.home-card-destacada h3,
+.home-card-destacada p {
+  color: #fff;
+}
+
+.home-card-info {
+  cursor: default;
+}
+
+.home-card-info:hover {
+  transform: none;
+  box-shadow: 0 2px 8px rgba(26, 143, 227, 0.06);
+}
+
+.home-card-icono {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+.home-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0d2d45;
+  margin: 0 0 0.5rem;
+}
+
+.home-card p {
+  font-size: 0.9rem;
+  color: #5a7a90;
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+
+.home-card-link {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1a8fe3;
+}
+
+.home-card-destacada .home-card-link {
+  color: #cce8ff;
+}
+
+.home-card-link-muted {
+  color: #8ab0c8 !important;
+}
+
+@media (max-width: 680px) {
+  .home-hero {
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+  }
+  .home-hero-illustration {
+    width: 130px;
+    height: 130px;
+  }
+  .home-hero-title {
+    font-size: 1.8rem;
+  }
+  .home-tooth-icon {
+    font-size: 4rem;
+  }
+  .home-circle-1 {
+    width: 120px;
+    height: 120px;
+  }
+  .home-circle-2 {
+    width: 80px;
+    height: 80px;
+  }
+}
