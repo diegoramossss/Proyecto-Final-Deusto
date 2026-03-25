@@ -177,14 +177,23 @@
 }
 
 .home-card-destacada {
-  background: linear-gradient(135deg, #1a8fe3 0%, #1a6fa8 100%);
-  border-color: transparent;
-  color: #fff;
+  background: #fff;
+  border: 1px solid #e0eef8;
+  border-radius: 16px;
+  padding: 1.8rem;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+  box-shadow: 0 2px 8px rgba(26, 143, 227, 0.06);
 }
 
 .home-card-destacada h3,
 .home-card-destacada p {
   color: #fff;
+}
+span.home-card-destacada .home-card-link {
+  color: #1a6fa8;
 }
 
 .home-card-info {
@@ -192,8 +201,8 @@
 }
 
 .home-card-info:hover {
-  transform: none;
-  box-shadow: 0 2px 8px rgba(26, 143, 227, 0.06);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(26, 143, 227, 0.14);
 }
 
 .home-card-icono {
