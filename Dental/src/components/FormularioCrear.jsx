@@ -30,7 +30,7 @@ function FormularioCrear() {
     setError(null);
     try {
       await pacienteService.create(formData);
-      navigate("/");
+      navigate("/pacientes");
     } catch (err) {
       setError(
         err.response?.data?.mensaje ||
@@ -175,7 +175,7 @@ function FormularioCrear() {
             <button
               type="button"
               className="btn btn-cancelar"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/pacientes")}
             >
               Cancelar
             </button>

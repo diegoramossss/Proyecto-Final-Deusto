@@ -70,15 +70,19 @@ function HomePage() {
         <div className="home-stat-card">
           <span className="home-stat-icon">📋</span>
           <div>
-            <p className="home-stat-numero">CRUD</p>
-            <p className="home-stat-label">Operaciones disponibles</p>
+            <p className="home-stat-numero">Tratamientos </p>
+            <p className="home-stat-label">
+              Implantes, ortodoncia, limpieza dental y más.
+            </p>
           </div>
         </div>
         <div className="home-stat-card">
-          <span className="home-stat-icon">☁️</span>
+          <span className="home-stat-icon">🩺</span>
           <div>
-            <p className="home-stat-numero">Online</p>
-            <p className="home-stat-label">API en la nube</p>
+            <p className="home-stat-numero">Nuestro Equipo</p>
+            <p className="home-stat-label">
+              Especialistas cualificados con años de experiencia
+            </p>
           </div>
         </div>
       </section>
@@ -89,42 +93,40 @@ function HomePage() {
         <div className="home-cards-grid">
           <div
             className="home-card"
-            onClick={() => navigate("/pacientes")}
+            onClick={() => navigate("/about")}
             role="button"
             tabIndex={0}
-            onKeyDown={(e) => e.key === "Enter" && navigate("/pacientes")}
+            onKeyDown={(e) => e.key === "Enter" && navigate("/about")}
           >
-            <div className="home-card-icono">📂</div>
-            <h3>Lista de pacientes</h3>
-            <p>
-              Consulta, edita y elimina los pacientes registrados en el sistema.
-            </p>
-            <span className="home-card-link">Ver todos →</span>
+            <div className="home-card-icono">ℹ️</div>
+            <h3>About us</h3>
+            <p>Conoce más sobre nuestro equipo y nuestra misión.</p>
           </div>
 
           <div
             className="home-card home-card-destacada"
-            onClick={() => navigate("/crear")}
+            onClick={() => navigate("/precios")}
             role="button"
             tabIndex={0}
-            onKeyDown={(e) => e.key === "Enter" && navigate("/crear")}
+            onKeyDown={(e) => e.key === "Enter" && navigate("/precios")}
           >
-            <div className="home-card-icono">➕</div>
-            <h3>Nuevo paciente</h3>
-            <p>Registra un nuevo paciente rellenando el formulario de alta.</p>
-            <span className="home-card-link">Crear ahora →</span>
+            <div className="home-card-icono">💰</div>
+            <h3>Planes y Ofertas</h3>
+            <p>Explora nuestros planes y ofertas especiales.</p>
           </div>
 
-          <div className="home-card home-card-info">
-            <div className="home-card-icono">🔒</div>
-            <h3>Datos seguros</h3>
+          <div
+            className="home-card home-card-info"
+            onClick={() => navigate("/contact")}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === "Enter" && navigate("/contact")}
+          >
+            <div className="home-card-icono">📧</div>
+            <h3>Contact us</h3>
             <p>
-              Toda la información se almacena de forma segura en nuestra API
-              REST.
+              ¿Tienes preguntas? Contáctanos para más información o soporte.
             </p>
-            <span className="home-card-link home-card-link-muted">
-              Dental Time API
-            </span>
           </div>
         </div>
       </section>

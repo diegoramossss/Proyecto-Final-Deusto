@@ -5,6 +5,8 @@
   border-radius: variables.$radius-lg;
   box-shadow: variables.$shadow-md;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .tabla-header {
